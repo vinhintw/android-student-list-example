@@ -12,13 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentViewHolder> {
-    private List<Student> studentList;
-    private Context context;
+public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentViewHolder>{
 
-    public StudentAdapter(Context context, List<Student> studentList) {
+    private final Context context;
+    private final List<Student> students;
+
+    public StudentAdapter(Context context, List<Student> students) {
         this.context = context;
-        this.studentList = studentList;
+        this.students = students;
     }
 
     @NonNull
@@ -30,14 +31,17 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
 
     @Override
     public void onBindViewHolder(@NonNull StudentViewHolder holder, int position) {
-        Student student = studentList.get(position);
-        holder.tvName.setText(student.getName());
+        Student student = students.get(position);
+        if ( student == null){
+            return;
+        }
         holder.tvId.setText(student.getStudentId());
+        holder.tvName.setText(student.getName());
     }
 
     @Override
     public int getItemCount() {
-        return studentList.size();
+      return students.size();
     }
 
     public static class StudentViewHolder extends RecyclerView.ViewHolder {

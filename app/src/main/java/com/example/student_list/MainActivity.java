@@ -12,7 +12,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private StudentAdapter adapter;
-    private List<Student> studentList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,12 +21,14 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        studentList = new ArrayList<>();
+        adapter = new StudentAdapter(this, createStudentsData());
+        recyclerView.setAdapter(adapter);
+    }
+    public List<Student> createStudentsData() {
+        List<Student> studentList = new ArrayList<>();
         studentList.add(new Student("11124623", "王大明"));
         studentList.add(new Student("45642352", "王小明"));
         studentList.add(new Student("5673434", "王忠明"));
-
-        adapter = new StudentAdapter(this, studentList);
-        recyclerView.setAdapter(adapter);
+        return studentList;
     }
 }
