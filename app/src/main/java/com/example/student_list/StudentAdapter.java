@@ -1,6 +1,7 @@
 package com.example.student_list;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentViewHolder>{
+public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentViewHolder> {
 
     private final Context context;
     private final List<Student> students;
@@ -32,16 +33,21 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     @Override
     public void onBindViewHolder(@NonNull StudentViewHolder holder, int position) {
         Student student = students.get(position);
-        if ( student == null){
+        if (student == null) {
             return;
         }
         holder.tvId.setText(student.getStudentId());
         holder.tvName.setText(student.getName());
+        holder.cardView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, DetailActivity.class);
+            intent.putExtra("student", student);
+            context.startActivity(intent);
+        });
     }
 
     @Override
     public int getItemCount() {
-      return students.size();
+        return students.size();
     }
 
     public static class StudentViewHolder extends RecyclerView.ViewHolder {

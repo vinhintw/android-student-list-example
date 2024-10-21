@@ -1,6 +1,8 @@
 package com.example.student_list;
 
-public class Student {
+import java.io.Serializable;
+
+public class Student implements Serializable {
     private final String studentId;
     private final String name;
 
